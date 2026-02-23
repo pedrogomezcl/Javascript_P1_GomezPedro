@@ -51,7 +51,7 @@ main{
     border: 1px solid rgb(51,51,51);
     border-radius: 5px;
     font-weight: 600;
-    color: rgb(118,118,188);
+    color: #3a444d;
     font-size: clamp(8px,5vw,1rem);
     box-shadow: -3px 4px rgb(135,135,135),-5px 7px rgb(51,51,51);
 }
