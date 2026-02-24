@@ -22,3 +22,30 @@ class HelloCard extends HTMLElement{
     }
 };
 customElements.define("hello-card",HelloCard);
+
+//ShadowDom + estilos encapsulados
+//<x-counter> , que sería un contador con estilos aislados
+const template = document.createElement("template");//<template></template>
+
+template.innerHTML=`<style>
+    :host { display: inline-block; font-family: system-ui, sans-serif; }
+    .wrap { border: 1px solid #ddd; border-radius: 14px; padding: 12px; }
+    button { padding: 8px 10px; border-radius: 10px; border: 1px solid #ccc; cursor: pointer; }
+    .value { font-size: 20px; margin: 0 10px; display: inline-block; min-width: 2ch; text-align: center; }
+  </style>
+
+  <div class="wrap">
+    <button id="dec">-</button>
+    <span class="value" id="value">0</span>
+    <button id="inc">+</button>
+  </div>`;
+
+class XCounter extends HTMLElement{
+    #value=0; //Variable privada llamada value con valor de cero
+    constructor(){
+        super();
+        this.attachShadow({mode:"open"});//Habilita ShadowDOM
+        this.shadowRoot.appendChild(template.content.cloneNode(true));
+    }
+}
+customElements.define("x-counter",XCounter);
