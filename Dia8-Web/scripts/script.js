@@ -27,7 +27,8 @@ customElements.define("hello-card",HelloCard);
 //<x-counter> , que sería un contador con estilos aislados
 const template = document.createElement("template");//<template></template>
 
-template.innerHTML=`<style>
+template.innerHTML=`
+<style>
     :host { display: inline-block; font-family: system-ui, sans-serif; }
     .wrap { border: 1px solid #ddd; border-radius: 14px; padding: 12px; }
     button { padding: 8px 10px; border-radius: 10px; border: 1px solid #ccc; cursor: pointer; }
@@ -46,6 +47,32 @@ class XCounter extends HTMLElement{
         super();
         this.attachShadow({mode:"open"});//Habilita ShadowDOM
         this.shadowRoot.appendChild(template.content.cloneNode(true));
+    }
+    #render(){//Esta creada para que cada vez que haya un cambio en el iterador, renderize.
+        this.shadowRoot.getElementById("value").textContent=String(this.#value);
+    }
+    #emit(){
+        //Al haber un evento con ShadowDOM, hay que emitirlo
+        this.dispatchEvent(
+            new CustomEvent("change",{
+                detail:{value:this.#value},
+                bubbles:true,
+                composed:true,
+            })
+        )
+    }
+    connectedCallback(){
+        //Diseñado para que cada vez que haya un cambio realice diferentes elementos
+        this.shadowRoot.getElementById("inc").addEventListener("click",()=>{
+            this.#value++;
+            this.#render();
+            this.#emit();
+        });
+        this.shadowRoot.getElementById("dec").addEventListener("click",()=>{
+            this.#value--;
+            this.#render();
+            this.#emit();
+        });
     }
 }
 customElements.define("x-counter",XCounter);
