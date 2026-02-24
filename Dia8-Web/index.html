@@ -1,10 +1,20 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Document</title>
 </head>
+<style>
+    /* El botón del ShadowDOM no se ve afectado por los estilos impuestos
+    , ya que está aislado adentro de su componente.*/
+    button {
+        background: red;
+        color: white;
+    }
+</style>
+
 <body>
     <!-- 
     <div style="padding:12px;border:1px solid #ccc;border-radius:12px">
@@ -14,8 +24,9 @@
     -->
     <hello-card name="Danna"> </hello-card>
     <hello-card name="Paco"> </hello-card>
-    
+
     <x-counter></x-counter>
 </body>
 <script src="./scripts/script.js"></script>
+
 </html>
